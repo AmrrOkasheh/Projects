@@ -73,7 +73,7 @@ void roadTask(void* param) {
   int roadIndex = *(int*)param;
   Road road = roads[roadIndex];
 
-  Serial.printf("✅ Road Task Started: %s | RED=%d YELLOW=%d GREEN=%d\n",
+  Serial.printf(" Road Task Started: %s | RED=%d YELLOW=%d GREEN=%d\n",
                 road.name, road.redPin, road.yellowPin, road.greenPin);
 
   while (true) {
@@ -86,12 +86,12 @@ void roadTask(void* param) {
 
     digitalWrite(road.greenPin, LOW);
     digitalWrite(road.yellowPin, HIGH);
-    Serial.printf("⚠️ Road %s: YELLOW\n", road.name);
+    Serial.printf(" Road %s: YELLOW\n", road.name);
     vTaskDelay(pdMS_TO_TICKS(500));
 
     digitalWrite(road.yellowPin, LOW);
     digitalWrite(road.redPin, HIGH);
-    Serial.printf("🔴 Road %s: RED\n", road.name);
+    Serial.printf(" Road %s: RED\n", road.name);
   }
 }
 
@@ -122,7 +122,7 @@ void controllerTask(void* param) {
       }
     }
 
-    Serial.printf("\n🧭 Controller activating: Road %s\n", roads[next].name);
+    Serial.printf("\n Controller activating: Road %s\n", roads[next].name);
     xTaskNotifyGive(roadTasks[next]);
     vTaskDelay(pdMS_TO_TICKS(5000));
     current = next;
@@ -144,10 +144,10 @@ void sensorMonitorTask(void* param) {
     // Mode decision
     if (allHaveTraffic || !anyHasTraffic) {
       currentMode = NORMAL;
-      Serial.println("🔁 Switching to NORMAL MODE");
+      Serial.println(" Switching to NORMAL MODE");
     } else {
       currentMode = INTELLIGENT;
-      Serial.println("🧠 Switching to INTELLIGENT MODE");
+      Serial.println(" Switching to INTELLIGENT MODE");
     }
 
     vTaskDelay(pdMS_TO_TICKS(2000));
