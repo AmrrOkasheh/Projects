@@ -43,19 +43,19 @@ void setup() {
     Serial.print(".");
   }
 
-  Serial.println("\n✅ WiFi connected!");
-  Serial.print("📶 IP Address: ");
+  Serial.println("\n WiFi connected!");
+  Serial.print(" IP Address: ");
   Serial.println(WiFi.localIP());
 
   server.begin();
-  Serial.println("✅ HTTP server started");
+  Serial.println(" HTTP server started");
 }
 
 void loop() {
   WiFiClient client = server.available();
   if (!client) return;
 
-  Serial.println("🌐 Client connected");
+  Serial.println(" Client connected");
 
   while (!client.available()) {
     delay(1);
@@ -78,7 +78,7 @@ void loop() {
   client.println("<!DOCTYPE html>");
   client.println("<html><head><meta charset='UTF-8'>");
 
-  // 🔁 Auto-refresh every 1 second
+  //  Auto-refresh every 1 second
   client.println("<meta http-equiv='refresh' content='1'>");
 
   client.println("<style>");
@@ -94,5 +94,5 @@ void loop() {
   client.println("</div></body></html>");
 
   client.stop();
-  Serial.println("❌ Client disconnected\n");
+  Serial.println(" Client disconnected\n");
 }
